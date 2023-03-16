@@ -15,7 +15,7 @@ export class EmployeeService {
     .get<City[]>(`${this.baseURL}/GetCityList`)
     .pipe(shareReplay(1));
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   fetchEmployeeData() {
     return this.http.get<Employee[]>(this.baseURL).pipe(

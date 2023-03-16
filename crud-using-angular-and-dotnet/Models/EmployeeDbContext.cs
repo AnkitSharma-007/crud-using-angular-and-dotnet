@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace crud_using_angular_and_dotnet.Models;
 
 public partial class EmployeeDbContext : DbContext
 {
-    public EmployeeDbContext()
-    {
-    }
 
     public EmployeeDbContext(DbContextOptions<EmployeeDbContext> options)
         : base(options)
