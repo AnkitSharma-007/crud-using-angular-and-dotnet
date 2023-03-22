@@ -9,7 +9,7 @@ import { Employee } from '../models/employee';
 })
 export class EmployeeService {
   baseURL = '/api/employee/';
-  movies$ = new BehaviorSubject<Employee[]>([]);
+  employees$ = new BehaviorSubject<Employee[]>([]);
 
   city$ = this.http
     .get<City[]>(`${this.baseURL}/GetCityList`)
@@ -20,7 +20,7 @@ export class EmployeeService {
   fetchEmployeeData() {
     return this.http.get<Employee[]>(this.baseURL).pipe(
       map((result) => {
-        this.movies$.next(result);
+        this.employees$.next(result);
       }),
       shareReplay(1)
     );

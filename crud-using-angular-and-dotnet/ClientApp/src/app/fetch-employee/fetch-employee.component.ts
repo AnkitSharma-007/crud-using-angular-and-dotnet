@@ -8,7 +8,7 @@ import { EmployeeService } from '../services/employee.service';
   styleUrls: ['./fetch-employee.component.css'],
 })
 export class FetchEmployeeComponent implements OnInit, OnDestroy {
-  readonly employees$ = this.employeeService.movies$;
+  readonly employees$ = this.employeeService.employees$;
   private destroyed$ = new ReplaySubject<void>(1);
 
   constructor(private readonly employeeService: EmployeeService) {}
