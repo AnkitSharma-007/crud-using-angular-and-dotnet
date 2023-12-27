@@ -1,11 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReplaySubject, switchMap, takeUntil } from 'rxjs';
 import { EmployeeService } from '../services/employee.service';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-fetch-employee',
-  templateUrl: './fetch-employee.component.html',
-  styleUrls: ['./fetch-employee.component.css'],
+    selector: 'app-fetch-employee',
+    templateUrl: './fetch-employee.component.html',
+    styleUrls: ['./fetch-employee.component.css'],
+    standalone: true,
+    imports: [
+        RouterLink,
+        NgIf,
+        NgFor,
+        AsyncPipe,
+    ],
 })
 export class FetchEmployeeComponent implements OnInit, OnDestroy {
   readonly employees$ = this.employeeService.employees$;

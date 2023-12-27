@@ -1,15 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, ReplaySubject, switchMap, takeUntil } from 'rxjs';
 import { Employee } from '../models/employee';
 import { EmployeeRegistration } from '../models/employee-registration';
 import { EmployeeService } from '../services/employee.service';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-add-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css'],
+    selector: 'app-add-employee',
+    templateUrl: './add-employee.component.html',
+    styleUrls: ['./add-employee.component.css'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        NgIf,
+        NgFor,
+        AsyncPipe,
+    ],
 })
 export class AddEmployeeComponent implements OnInit, OnDestroy {
   employeeForm!: FormGroup<EmployeeRegistration>;
