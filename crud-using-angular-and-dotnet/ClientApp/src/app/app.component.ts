@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
@@ -7,5 +7,6 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
   templateUrl: './app.component.html',
   standalone: true,
   imports: [NavMenuComponent, RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {}

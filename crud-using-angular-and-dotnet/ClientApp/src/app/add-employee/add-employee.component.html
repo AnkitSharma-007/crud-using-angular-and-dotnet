@@ -1,4 +1,4 @@
-<h1 class="display-5">{{ formTitle }} employee</h1>
+<h1 class="display-5">{{ formTitle() }} employee</h1>
 <hr />
 <div class="row">
   <div class="col-md-6">
@@ -8,15 +8,10 @@
           <div class="mb-3">
             <label for="Name" class="form-label">Name</label>
             <input type="text" class="form-control" formControlName="name" />
-            <span
-              class="text-danger"
-              *ngIf="
-                (employeeFormControl.name.touched || submitted) &&
-                employeeFormControl.name.errors?.['required']
-                "
-            >
-              Name is required.
-            </span>
+            @if ( (employeeFormControl.name.touched || submitted()) &&
+            employeeFormControl.name.errors?.['required'] ) {
+            <span class="text-danger"> Name is required. </span>
+            }
           </div>
 
           <div class="mb-3">
@@ -30,14 +25,10 @@
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
-            <span
-              class="text-danger"
-              *ngIf="
-                (employeeFormControl.gender.touched || submitted) && 
-                employeeFormControl.gender.errors?.['required']"
-            >
-              Gender is required
-            </span>
+            @if ( (employeeFormControl.gender.touched || submitted()) &&
+            employeeFormControl.gender.errors?.['required']) {
+            <span class="text-danger"> Gender is required </span>
+            }
           </div>
 
           <div class="mb-3">
@@ -47,37 +38,26 @@
               type="text"
               formControlName="department"
             />
-            <span
-              class="text-danger"
-              *ngIf="
-                (employeeFormControl.department.touched || submitted) &&
-                employeeFormControl.department.errors?.['required']
-                "
-            >
-              Department is required
-            </span>
+            @if ( (employeeFormControl.department.touched || submitted()) &&
+            employeeFormControl.department.errors?.['required'] ) {
+            <span class="text-danger"> Department is required </span>
+            }
           </div>
 
           <div class="mb-3">
             <label for="City" class="form-label col-md-12">City</label>
             <select class="form-control" data-val="true" formControlName="city">
               <option value="">-- Select City --</option>
-              <option
-                *ngFor="let city of cityList$ | async"
-                value="{{ city.cityName }}"
-              >
+              @for (city of this.employeeService.cityList(); track city) {
+              <option value="{{ city.cityName }}">
                 {{ city.cityName }}
               </option>
+              }
             </select>
-            <span
-              class="text-danger"
-              *ngIf="
-                 (employeeFormControl.city.touched || submitted) &&
-                 employeeFormControl.city.errors?.['required']
-                 "
-            >
-              City is required
-            </span>
+            @if ( (employeeFormControl.city.touched || submitted()) &&
+            employeeFormControl.city.errors?.['required'] ) {
+            <span class="text-danger"> City is required </span>
+            }
           </div>
           <div align="right">
             <button type="submit" class="btn btn-primary me-2">Save</button>

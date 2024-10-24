@@ -1,28 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ReplaySubject, switchMap, takeUntil } from 'rxjs';
 import { EmployeeService } from '../services/employee.service';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-fetch-employee',
-    templateUrl: './fetch-employee.component.html',
-    styleUrls: ['./fetch-employee.component.css'],
-    standalone: true,
-    imports: [
-        RouterLink,
-        NgIf,
-        NgFor,
-        AsyncPipe,
-    ],
+  selector: 'app-fetch-employee',
+  templateUrl: './fetch-employee.component.html',
+  styleUrls: ['./fetch-employee.component.css'],
+  standalone: true,
+  imports: [RouterLink, AsyncPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FetchEmployeeComponent implements OnInit, OnDestroy {
-  readonly employees$ = this.employeeService.employees$;
+export class FetchEmployeeComponent implements OnDestroy {
+  private readonly employeeService = inject(EmployeeService);
   private destroyed$ = new ReplaySubject<void>(1);
+  readonly employees$ = this.employeeService.employees$;
 
-  constructor(private readonly employeeService: EmployeeService) {}
-
-  ngOnInit(): void {
+  constructor() {
     this.employeeService
       .fetchEmployeeData()
       .pipe(takeUntil(this.destroyed$))
@@ -33,7 +33,7 @@ export class FetchEmployeeComponent implements OnInit, OnDestroy {
     const confirmDelete = confirm(
       'Do you want to delete the employee with Id: ' + employeeID
     );
-    if (confirmDelete) {
+    if (confirmDelete)
       this.employeeService
         .deleteEmployee(employeeID)
         .pipe(
@@ -41,7 +41,6 @@ export class FetchEmployeeComponent implements OnInit, OnDestroy {
           takeUntil(this.destroyed$)
         )
         .subscribe();
-    }
   }
 
   ngOnDestroy(): void {
