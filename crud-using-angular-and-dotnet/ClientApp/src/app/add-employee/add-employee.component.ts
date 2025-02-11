@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import {
   FormGroup,
@@ -17,7 +16,7 @@ import { EmployeeService } from '../services/employee.service';
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, AsyncPipe],
+  imports: [ReactiveFormsModule],
 })
 export class AddEmployeeComponent implements OnInit, OnDestroy {
   private readonly formBuilder = inject(NonNullableFormBuilder);
