@@ -2,9 +2,17 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "types": ["jest", "node"]
+    "target": "es2016",
+    "outDir": "../../dist/out-tsc",
+    "module": "commonjs",
+    "types": ["jest", "node"],
+    "resolveJsonModule": true
   },
-  "files": ["src/test.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+  "files": ["test-setup.ts"],
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.test.ts",
+    "src/**/*.d.ts",
+    "jest.config.ts"
+  ]
 }

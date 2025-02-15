@@ -7,10 +7,15 @@
         <form [formGroup]="employeeForm" (ngSubmit)="onFormSubmit()">
           <div class="mb-3">
             <label for="Name" class="form-label">Name</label>
-            <input type="text" class="form-control" formControlName="name" />
+            <input
+              type="text"
+              class="form-control"
+              formControlName="name"
+              aria-label="name"
+            />
             @if ( (employeeFormControl.name.touched || submitted()) &&
             employeeFormControl.name.errors?.['required'] ) {
-            <span class="text-danger"> Name is required. </span>
+            <span class="text-danger"> Name is required </span>
             }
           </div>
 
@@ -20,6 +25,7 @@
               class="form-control"
               data-val="true"
               formControlName="gender"
+              aria-label="gender"
             >
               <option value="">-- Select Gender --</option>
               <option value="Male">Male</option>
@@ -37,6 +43,7 @@
               class="form-control"
               type="text"
               formControlName="department"
+              aria-label="department"
             />
             @if ( (employeeFormControl.department.touched || submitted()) &&
             employeeFormControl.department.errors?.['required'] ) {
@@ -46,7 +53,12 @@
 
           <div class="mb-3">
             <label for="City" class="form-label col-md-12">City</label>
-            <select class="form-control" data-val="true" formControlName="city">
+            <select
+              class="form-control"
+              data-val="true"
+              formControlName="city"
+              aria-label="city"
+            >
               <option value="">-- Select City --</option>
               @for (city of this.employeeService.cityList(); track city) {
               <option value="{{ city.cityName }}">

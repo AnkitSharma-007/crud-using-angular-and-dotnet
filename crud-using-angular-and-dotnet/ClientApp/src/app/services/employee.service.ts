@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, shareReplay } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, shareReplay, tap } from 'rxjs';
 import { City } from '../models/city';
 import { Employee } from '../models/employee';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -13,12 +13,15 @@ export class EmployeeService {
   baseURL = '/api/employee/';
   employees$ = new BehaviorSubject<Employee[]>([]);
 
-  private city$ = this.http.get<City[]>(`${this.baseURL}/GetCityList`);
-  cityList = toSignal(this.city$, { initialValue: [] });
+ mockCities: City[] = [{ cityId: 1, cityName: 'New York' }, { cityId: 2, cityName: 'Los Angeles' }];
 
+  private city$ = this.http.get<City[]>(`${this.baseURL}GetCityList`);
+  cityList = toSignal(this.city$, { initialValue: [] });
+  
+  cityList1 = of(this.mockCities);
   fetchEmployeeData() {
     return this.http.get<Employee[]>(this.baseURL).pipe(
-      map((result) => {
+      tap((result) => {
         this.employees$.next(result);
       }),
       shareReplay(1)

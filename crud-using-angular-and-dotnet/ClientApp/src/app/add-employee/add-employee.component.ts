@@ -95,6 +95,7 @@ export class AddEmployeeComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: () => {
+          console.log('Employee added successfully');
           this.navigateToFetchEmployee();
         },
         error: (error) => console.error(error),
